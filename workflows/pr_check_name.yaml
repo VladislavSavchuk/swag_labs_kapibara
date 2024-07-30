@@ -1,0 +1,25 @@
+name: PR Title Linter
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+    branches: [main] 
+
+jobs:
+  pr_lint:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: morrisoncole/pr-lint-action@v1.7.1
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          title-regex: "Homework[0-9]{1,2}: [a-zA-Z]+ [a-zA-Z]+"
+          on-failed-regex-fail-action: true
+          on-failed-regex-create-review: true
+          on-failed-regex-request-changes: true
+          on-failed-regex-comment:
+            "Please, FIX Pull Request title, it should be ``Homework<number><:> <Your Name> <Your Surname>``"
+          on-succeeded-regex-dismiss-review-comment:
+            "Pull Request title looks good!"
