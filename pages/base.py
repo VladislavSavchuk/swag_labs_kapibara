@@ -83,5 +83,5 @@ class BasePage:
         if element:
             element.clear()
             element.send_keys(text)
-        else:
-            return False
+            return True
+        return False

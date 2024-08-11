@@ -19,4 +19,5 @@ class LoginPageLocators:
 
     # messages
     error_msg = (By.CSS_SELECTOR,
-                 "#login_button_container > div > form > div.error-message-container.error")
+                 "#login_button_container > div > form > "
+                 "div.error-message-container.error")
