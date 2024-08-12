@@ -22,7 +22,7 @@ def driver():
     options = webdriver.ChromeOptions()
     options.add_argument("--window-size=1920,1080")
     browser = webdriver.Chrome(options=options)
-    browser.implicitly_wait(5)
+    browser.implicitly_wait(2)
     browser.get(URL)
     yield browser
     browser.quit()
