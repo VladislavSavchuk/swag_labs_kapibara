@@ -14,10 +14,6 @@ def driver():
     sets an implicit wait time, and navigates to the predefined URL.
     It ensures that the browser is opened before the test and properly
     closed after the test.
-
-    Returns:
-        selenium.webdriver.Chrome: The WebDriver instance used
-        for browser interactions.
     """
     options = webdriver.ChromeOptions()
     options.add_argument("--window-size=1920,1080")

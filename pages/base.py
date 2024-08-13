@@ -16,10 +16,6 @@ class BasePage:
         """
         Initializes the BasePage with the provided WebDriver
         instance and sets up the WebDriverWait.
-
-        Parameters:
-            driver (selenium.webdriver.remote.webdriver.WebDriver):
-                The WebDriver instance used to interact with the browser.
         """
         self.driver = driver
         self.wait = WebDriverWait(driver, 10)
@@ -27,34 +23,12 @@ class BasePage:
     def find_element(self, locator):
         """
         Finds an element on the page using the provided locator.
-
-        Parameters:
-            locator (tuple):
-                A tuple containing the method to locate the element
-                and the locator value (e.g., (By.CSS_SELECTOR, 'selector')).
-
-        Returns:
-            selenium.webdriver.remote.webelement.WebElement:
-                The located element.
-
-        Raises:
-            TimeoutException:
-                If the element is not found within the timeout period.
         """
         return self.wait.until(EC.presence_of_element_located(locator))
 
     def click_element(self, locator):
         """
         Clicks on an element located by the provided locator.
-
-        Parameters:
-            locator (tuple):
-                A tuple containing the method to locate the element
-                and the locator value (e.g., (By.CSS_SELECTOR, 'selector')).
-
-        Raises:
-            TimeoutException:
-                If the element is not clickable within the timeout period.
         """
         element = self.wait.until(EC.element_to_be_clickable(locator))
         element.click()
@@ -62,18 +36,6 @@ class BasePage:
     def enter_text(self, locator, text):
         """
         Enters text into an input field located by the provided locator.
-
-        Parameters:
-            locator (tuple):
-                A tuple containing the method to locate the element
-                and the locator value (e.g., (By.CSS_SELECTOR, 'selector')).
-            text (str):
-                The text to enter into the input field.
-
-        Raises:
-            TimeoutException:
-                If the element is not found or the input field is not
-                interactable within the timeout period.
 
         Returns:
             bool:
