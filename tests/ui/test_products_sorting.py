@@ -11,7 +11,6 @@ import logging
 import pytest
 from pages.login_page import LoginPage
 from pages.all_products_page import AllProductsPage
-from test_data.login_creds import (STANDARD_USER, STANDARD_PASSWORD)
 from test_data import sorting_options_data
 
 
@@ -33,7 +32,7 @@ def test_default_sorting(driver):
 
     login_page = LoginPage(driver)
     all_products_page = AllProductsPage(driver)
-    login_page.login(STANDARD_USER, STANDARD_PASSWORD)
+    login_page.login()
 
     assert (sorting_options_data.ABC_ASC
             in all_products_page.get_active_sorting_option_text())
@@ -68,7 +67,7 @@ def test_sorting_abc_desc(driver):
 
     login_page = LoginPage(driver)
     all_products_page = AllProductsPage(driver)
-    login_page.login(STANDARD_USER, STANDARD_PASSWORD)
+    login_page.login()
 
     product_titles = all_products_page.get_all_products_titles()
     all_products_page.select_sorting_option(all_products_page.sorting_abc_desc)
@@ -94,7 +93,7 @@ def test_sorting_price_asc(driver):
 
     login_page = LoginPage(driver)
     all_products_page = AllProductsPage(driver)
-    login_page.login(STANDARD_USER, STANDARD_PASSWORD)
+    login_page.login()
 
     sorted_product_prices = sorted(all_products_page.get_all_products_prices())
     all_products_page.select_sorting_option(
@@ -121,7 +120,7 @@ def test_sorting_price_desc(driver):
 
     login_page = LoginPage(driver)
     all_products_page = AllProductsPage(driver)
-    login_page.login(STANDARD_USER, STANDARD_PASSWORD)
+    login_page.login()
 
     sorted_product_prices = sorted(all_products_page.get_all_products_prices())
     all_products_page.select_sorting_option(
