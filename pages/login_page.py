@@ -5,7 +5,7 @@ specific to the login page of the application.
 
 import logging
 from selenium.common import TimeoutException
-from pages.locators.login_page_locators import LoginPageLocators
+from selenium.webdriver.common.by import By
 from pages.base import BasePage
 
 
@@ -19,30 +19,22 @@ class LoginPage(BasePage):
         """
         Initializes the LoginPage with the provided WebDriver instance
         and sets up the locators for the login page elements.
-
-        Parameters:
-            driver (selenium.webdriver.remote.webdriver.WebDriver):
-                The WebDriver instance used to interact with the browser.
         """
         super().__init__(driver)
-        self.input_username = LoginPageLocators.input_username
-        self.input_password = LoginPageLocators.input_password
-        self.login_btn = LoginPageLocators.login_btn
-        self.error_msg = LoginPageLocators.error_msg
+        self.input_username = (By.ID, "user-name")
+        self.input_password = (By.ID, "password")
+        self.login_btn = (By.ID, "login-button")
+        self.error_msg = (By.TAG_NAME, "h3")
 
     def login(self, username, password):
         """
         Completes the login process by entering the provided username
         and password, and submitting the login form.
-
-        Parameters:
-            username (str): The username to be entered in the login form.
-            password (str): The password to be entered in the login form.
         """
-        self.enter_text(LoginPageLocators.input_username, username)
-        self.enter_text(LoginPageLocators.input_password, password)
+        self.enter_text(self.input_username, username)
+        self.enter_text(self.input_password, password)
 
-        self.click_element(LoginPageLocators.login_btn)
+        self.click_element(self.login_btn)
 
     def error_message_exists(self):
         """
@@ -50,13 +42,6 @@ class LoginPage(BasePage):
 
         Returns:
             bool: True if an error message exists, False otherwise.
-
-        Logs:
-            Logs the presence or absence of an error message on the page.
-
-        Raises:
-            TimeoutException: If the error message is not found within
-            the expected time.
         """
         try:
             error_message = self.driver.find_elements(*self.error_msg)
