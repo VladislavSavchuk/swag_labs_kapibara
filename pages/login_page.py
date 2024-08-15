@@ -7,6 +7,7 @@ import logging
 from selenium.common import TimeoutException
 from selenium.webdriver.common.by import By
 from pages.base import BasePage
+from test_data import login_creds
 
 
 class LoginPage(BasePage):
@@ -26,7 +27,8 @@ class LoginPage(BasePage):
         self.login_btn = (By.ID, "login-button")
         self.error_msg = (By.TAG_NAME, "h3")
 
-    def login(self, username, password):
+    def login(self, username=login_creds.STANDARD_USER,
+              password=login_creds.STANDARD_PASSWORD):
         """
         Completes the login process by entering the provided username
         and password, and submitting the login form.

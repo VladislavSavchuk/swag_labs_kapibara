@@ -47,3 +47,41 @@ class BasePage:
             element.send_keys(text)
             return True
         return False
+
+    def get_text(self, locator):
+        """
+        Gets element text by the provided locator.
+
+        Parameters:
+            locator (tuple):
+                A tuple containing the method to locate the element
+                and the locator value (e.g., (By.CSS_SELECTOR, 'selector')).
+
+        Raises:
+            TimeoutException:
+                If the element is not clickable within the timeout period.
+        """
+        return self.wait.until(
+            EC.visibility_of_element_located(locator)).text
+
+    def get_all_elements_texts(self, locator):
+        """
+        Gets all elements texts by the provided locator.
+
+        Parameters:
+            locator (tuple):
+                A tuple containing the method to locate the element
+                and the locator value (e.g., (By.CSS_SELECTOR, 'selector')).
+
+        Raises:
+            TimeoutException:
+                If the element is not clickable within the timeout period.
+        """
+        elements = self.wait.until(
+            EC.visibility_of_all_elements_located(locator))
+
+        texts = []
+        for elem in elements:
+            text = elem.text
+            texts.append(text)
+        return texts
