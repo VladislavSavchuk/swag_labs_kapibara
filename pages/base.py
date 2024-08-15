@@ -85,3 +85,9 @@ class BasePage:
             text = elem.text
             texts.append(text)
         return texts
+
+    def element_is_invisible(self, locator):
+        """
+        Checks if an element is invisible.
+        """
+        return self.wait.until(EC.invisibility_of_element_located(locator))
