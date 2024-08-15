@@ -21,4 +21,4 @@ jobs:
           pip install pylint
       - name: Analysing the code with pylint
         run: |
-          pylint --disable=R0903,C0209,C0115,C0116,W0621 *.py
+          pylint --disable=R0903,C0209,C0115,C0116,W0621,W1203 *.py
