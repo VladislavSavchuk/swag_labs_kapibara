@@ -55,19 +55,19 @@ class ShoppingCartPage(BasePage):
 
     def get_cart_items_name(self):
         """ Returns cart items name """
-        return self.get_all_elements_texts(self.cart_items_name)
+        return self.get_text(self.cart_items_name)
 
     def get_cart_items_desc(self):
         """ Returns cart items description """
-        return self.get_all_elements_texts(self.cart_items_desc)
+        return self.get_text(self.cart_items_desc)
 
     def get_cart_items_price(self):
         """ Returns cart items price """
-        return self.get_all_elements_texts(self.cart_items_price)
+        return self.get_text(self.cart_items_price)
 
     def get_cart_items_qty(self):
         """ Returns cart items quantity """
-        return self.get_all_elements_texts(self.cart_items_qty)
+        return self.get_text(self.cart_items_qty)
 
     def verify_remove_item_from_cart(self):
         """ Verifies that item was removed from cart """
