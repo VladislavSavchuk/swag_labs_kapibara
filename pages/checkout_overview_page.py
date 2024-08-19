@@ -7,6 +7,7 @@ application.
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from pages.base import BasePage
+from test_data.constants import TAX, TAX_TOTAL
 
 
 class CheckoutOverviewPage(BasePage):
@@ -78,7 +79,7 @@ class CheckoutOverviewPage(BasePage):
                                 .replace('Item total: $', ''))
         taxes = float(self.get_text(self.taxes_price)
                           .replace('Tax: $', ''))
-        taxes_calc = round((items_total * 0.08), 2)
+        taxes_calc = round((items_total * TAX), 2)
         return taxes_calc == taxes
 
     def check_total_amount_calculated(self):
@@ -87,7 +88,7 @@ class CheckoutOverviewPage(BasePage):
                                 .replace('Item total: $', ''))
         total = float(self.get_text(self.total_price)
                           .replace('Total: $', ''))
-        total_calc = round((items_total * 1.08), 2)
+        total_calc = round((items_total * TAX_TOTAL), 2)
         return total_calc == total
 
     def click_finish(self):
