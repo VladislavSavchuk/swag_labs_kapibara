@@ -32,11 +32,13 @@ class CheckoutCompletePage(BasePage):
 
     def check_page_elements(self):
         """ Finds inputs for user info, returns False otherwise """
+        elements = [self.complete_icon,
+                    self.complete_header,
+                    self.complete_description,
+                    self.back_home_button]
         try:
-            self.find_element(self.complete_icon)
-            self.find_element(self.complete_header)
-            self.find_element(self.complete_description)
-            self.find_element(self.back_home_button)
+            for element in elements:
+                self.find_element(element)
 
         except TimeoutException:
             return False

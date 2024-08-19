@@ -53,22 +53,25 @@ class CheckoutOverviewPage(BasePage):
 
     def check_page_elements(self):
         """ Finds inputs for user info, returns False otherwise """
+        elements = [self.product_cart,
+                    self.product_quantity,
+                    self.product_title,
+                    self.product_description,
+                    self.product_price,
+                    self.payment_info_section,
+                    self.payment_card_info,
+                    self.shipping_info_section,
+                    self.shipping_company_info,
+                    self.price_total_section,
+                    self.items_total_price,
+                    self.taxes_price,
+                    self.total_price,
+                    self.cancel_button,
+                    self.finish_button]
         try:
-            self.find_element(self.product_cart)
-            self.find_element(self.product_quantity)
-            self.find_element(self.product_title)
-            self.find_element(self.product_description)
-            self.find_element(self.product_price)
-            self.find_element(self.payment_info_section)
-            self.find_element(self.payment_card_info)
-            self.find_element(self.shipping_info_section)
-            self.find_element(self.shipping_company_info)
-            self.find_element(self.price_total_section)
-            self.find_element(self.items_total_price)
-            self.find_element(self.taxes_price)
-            self.find_element(self.total_price)
-            self.find_element(self.cancel_button)
-            self.find_element(self.finish_button)
+            for element in elements:
+                self.find_element(element)
+
         except TimeoutException:
             return False
         return True
