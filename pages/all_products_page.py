@@ -3,6 +3,8 @@ This module contains the AllProductsPage class, which provides functionalities
 specific to the products page of the application.
 """
 
+import logging
+from random import randrange
 from selenium.webdriver.common.by import By
 from pages.base import BasePage
 
@@ -10,19 +12,20 @@ from pages.base import BasePage
 class AllProductsPage(BasePage):
     """
     Class representing the products page of the application.
-    Inherits from BasePage to provide common page functionalities.
     """
 
     def __init__(self, driver):
         """
-        Initializes the AllProductsPage with the provided WebDriver instance
-        and sets up the locators for the login page elements.
-
-        Parameters:
-            driver (selenium.webdriver.remote.webdriver.WebDriver):
-                The WebDriver instance used to interact with the browser.
+        Initializes AllProductsPage and sets up the locators and methods for
+        products page.
         """
         super().__init__(driver)
+        self.page_title = (By.CLASS_NAME, "title")
+
+        self.inventory_list = (By.CLASS_NAME, "inventory_list")
+        self.cart_button = (By.CLASS_NAME, "shopping_cart_link")
+        self.cart_badge = (By.CLASS_NAME, "shopping_cart_badge")
+
         self.sorting_selector = (
             By.XPATH, "//select[@data-test='product-sort-container']")
         self.active_sorting_option = (By.CLASS_NAME, "active_option")
@@ -34,6 +37,15 @@ class AllProductsPage(BasePage):
 
         self.product_title = (By.CLASS_NAME, "inventory_item_name ")
         self.product_price = (By.CLASS_NAME, "inventory_item_price")
+        self.add_to_cart_button = (By.ID, "add-to-cart-sauce-labs-onesie")
+
+    def get_page_title(self):
+        """ Returns page title text """
+        return self.get_text(self.page_title)
+
+    def check_products_exist(self):
+        """ Returns elements if found, TimeoutException otherwise """
+        return self.find_element(self.inventory_list)
 
     def get_active_sorting_option_text(self):
         """ Returns text of active sorting option """
@@ -63,3 +75,20 @@ class AllProductsPage(BasePage):
         prices = self.get_all_elements_texts(self.product_price)
         prices = [float(elem.replace('$', '')) for elem in prices]
         return prices
+
+    def add_random_product_to_cart(self):
+        """ Clicks 'Add to cart' on random product """
+        add_buttons_list = self.find_elements(self.add_to_cart_button)
+        self.click_element(add_buttons_list[randrange(len(add_buttons_list))])
+
+        assert self.cart_badge_number() == '1'
+        logging.info("1 product added to cart")
+
+    def cart_badge_number(self):
+        """ Returns the number at cart badge representing amount of products
+            added to cart """
+        return self.get_text(self.cart_badge)
+
+    def go_to_cart(self):
+        """ Clicks at cart button """
+        self.click_element(self.cart_button)
