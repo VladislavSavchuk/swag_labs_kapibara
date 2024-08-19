@@ -127,10 +127,10 @@ def test_correct_total(driver):
 
     checkout_info_page.fill_checkout_info_and_proceed()
 
-    assert checkout_overview_page.check_taxes_calculated() is True
+    assert checkout_overview_page.check_taxes_calculated()
     logging.info("Taxes calculated correctly")
 
-    assert checkout_overview_page.check_total_amount_calculated() is True
+    assert checkout_overview_page.check_total_amount_calculated()
     logging.info("Total calculated correctly")
 
 
@@ -247,7 +247,7 @@ def test_cancel_checkout(driver):
     assert cart_page.get_page_title() == page_titles.CART
     logging.info("User successfully returned to 'Your Cart' page")
 
-    cart_page.check_cart_items_exists()
+    assert cart_page.check_cart_items_exists()
     logging.info("Cart item(s) remain in cart after terminating checkout "
                  "process")
 
