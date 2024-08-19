@@ -4,7 +4,6 @@ This module contains a test to check the 'Add to card' click
 """
 
 import logging
-import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC

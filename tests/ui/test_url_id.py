@@ -21,7 +21,8 @@ def test_product_page(driver, product_id, expected_name):
 
     # We expect that the element with the class
     product_name_element = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CLASS_NAME, "inventory_details_name"))
+        EC.presence_of_element_located((By.CLASS_NAME,
+                                        "inventory_details_name"))
     )
 
     # Extracting text from an element

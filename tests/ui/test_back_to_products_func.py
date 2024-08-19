@@ -4,11 +4,11 @@ This module contains a test to check the 'Back to products' click
 """
 
 import logging
-import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+
 
 def test_back_to_products_button(driver):
     """Step 1: Go to specific product page"""
@@ -18,15 +18,18 @@ def test_back_to_products_button(driver):
 
     try:
         # Step 2: Make sure the element is clickable and click on it
-        logging.info("Attempting to find and click on 'back-to-products' button")
+        logging.info("Attempting to find and click on "
+                     "'back-to-products' button")
         back_button_clickable = WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.ID, "back-to-products"))
         )
         back_button_clickable.click()
         logging.info("Clicked on 'back-to-products' button successfully")
 
-        # Step 3: Make sure the browser is redirected to the product catalog page
-        logging.info("Verifying that the browser is redirected to the product catalog page")
+        # Step 3: Make sure the browser is redirected
+        # to the product catalog page
+        logging.info("Verifying that the browser is "
+                     "redirected to the product catalog page")
         WebDriverWait(driver, 20).until(
             EC.url_to_be("https://www.saucedemo.com/inventory.html")
         )

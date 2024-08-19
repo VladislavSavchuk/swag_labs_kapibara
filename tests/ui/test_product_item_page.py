@@ -51,13 +51,15 @@ def test_page_elements(driver):
         # 1.2 Page title
         # logging.info("Checking for Page title")
         # page_title = driver.title
-        # assert "Sauce Labs Onesie" in page_title, f"Incorrect page title: {page_title}"
+        # assert "Sauce Labs Onesie" in page_title,
+        # f"Incorrect page title: {page_title}"
         # logging.info(f"Page title is correct: {page_title}")
 
         # 1.3 Back to products button
         logging.info("Checking for Back to Products button")
         back_to_products_button = page.get_back_to_products_button()
-        assert back_to_products_button.is_displayed(), "Back to Products button not found"
+        assert back_to_products_button.is_displayed(), \
+            "Back to Products button not found"
         logging.info("Back to Products button found")
 
         # 1.4 Product image
@@ -75,7 +77,8 @@ def test_page_elements(driver):
         # 1.6 Product description
         logging.info("Checking for Product description")
         product_description = page.get_product_description()
-        assert product_description.is_displayed(), "Product description not found"
+        assert product_description.is_displayed(), \
+            "Product description not found"
         logging.info("Product description found")
 
         # 1.7 Product price
@@ -87,7 +90,8 @@ def test_page_elements(driver):
         # 1.8 Add to Cart button
         logging.info("Checking for Add to Cart button")
         add_to_cart_button = page.get_add_to_cart_button()
-        assert add_to_cart_button.is_displayed(), "Add to Cart button not found"
+        assert add_to_cart_button.is_displayed(), \
+            "Add to Cart button not found"
         logging.info("Add to Cart button found")
 
         logging.info("Test passed successfully")
