@@ -3,6 +3,8 @@
 import logging
 import pytest
 from api_methods.user_api import UserAPI, generate_random_username
+from jsonschema import validate, ValidationError
+from tests.api.config import user_schema_1, user_schema_2
 
 
 @pytest.fixture(scope="module")
@@ -30,6 +32,11 @@ def created_user(user_api):
     logging.info(f"Response status code: {response.status_code}")
     logging.info(f"Response data: {response_data}")
 
+    try:
+        validate(instance=response_data, schema=user_schema_1)
+    except ValidationError as e:
+        pytest.fail(f"Response JSON does not match schema: {e.message}")
+
     assert response.status_code == 200, \
         f'Expected 200, got {response.status_code}'
     assert response_data['code'] == 200, 'Unexpected response code'
@@ -50,6 +57,12 @@ def test_get_user(user_api, created_user):
 
     assert response.status_code == 200, \
         f'Expected 200, got {response.status_code}'
+
+    try:
+        validate(instance=response_data, schema=user_schema_2)
+    except ValidationError as e:
+        pytest.fail(f"Response JSON does not match schema: {e.message}")
+
     assert response_data["username"] == created_user
 
     logging.info("Successfully retrieved user")
@@ -81,6 +94,12 @@ def test_update_user(user_api, created_user):
 
     assert response.status_code == 200, \
         f'Expected 200, got {response.status_code}'
+
+    try:
+        validate(instance=response_data, schema=user_schema_1)
+    except ValidationError as e:
+        pytest.fail(f"Response JSON does not match schema: {e.message}")
+
     assert response_data['code'] == 200, 'Unexpected response code'
 
     logging.info("Successfully updated user")
@@ -103,6 +122,12 @@ def test_delete_user(user_api, created_user):
 
     assert response.status_code == 200, \
         f'Expected 200, got {response.status_code}'
+
+    try:
+        validate(instance=response_data, schema=user_schema_1)
+    except ValidationError as e:
+        pytest.fail(f"Response JSON does not match schema: {e.message}")
+
     assert response_data['code'] == 200, 'Unexpected response code'
     assert response_data['message'] == updated_user_data, \
         'Unexpected username'
