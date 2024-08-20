@@ -16,6 +16,7 @@ htmlcov/
 
 # Environments
 venv*/
+.env
 
 # Virtual environment
 swaglabs*/
