@@ -18,13 +18,15 @@ class BaseAPI:
     def post(self, endpoint, data=None, json=None, headers=None):
         """ Posts the response from the API. """
         url = f"{self.base_url}{endpoint}"
-        response = requests.post(url, data=data, json=json, headers=headers)
+        response = requests.post(url, data=data, json=json,
+                                 headers=headers)
         return response
 
     def put(self, endpoint, data=None, json=None, headers=None):
         """ Puts the response from the API. """
         url = f"{self.base_url}{endpoint}"
-        response = requests.put(url, data=data, json=json, headers=headers)
+        response = requests.put(url, data=data, json=json,
+                                headers=headers)
         return response
 
     def delete(self, endpoint, headers=None):
