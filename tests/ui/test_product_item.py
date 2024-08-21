@@ -44,7 +44,8 @@ class ProductItemPage(BasePage):
         self.card_title = (By.CLASS_NAME, "inventory_item_name")
         self.card_description = (By.CLASS_NAME, "inventory_item_desc")
         self.card_price = (By.CLASS_NAME, "inventory_item_price")
-        self.add_to_cart_products = (By.ID, "add-to-cart-sauce-labs-bolt-t-shirt")
+        self.add_to_cart_products = (By.ID,
+                                     "add-to-cart-sauce-labs-bolt-t-shirt")
         self.remove_products = (By.ID, "remove-sauce-labs-bolt-t-shirt")
 
     def get_burger_menu(self):
@@ -118,7 +119,8 @@ class ProductItemPage(BasePage):
 
 def check_element(page, element_locator, element_name):
     logging.info(f"Checking for {element_name}")
-    element = page.find_element(EC.presence_of_element_located(element_locator))
+    element = page.find_element(EC.presence_of_element_located
+                                (element_locator))
     assert element.is_displayed(), f"{element_name} not found"
     logging.info(f"{element_name} found")
 
@@ -161,7 +163,8 @@ def test_page_elements_products_page_item(product_item_page):
         check_element(product_item_page,
                       product_item_page.card_price, "Card price")
         check_element(product_item_page,
-                      product_item_page.add_to_cart_products, "Add to cart products")
+                      product_item_page.add_to_cart_products,
+                      "Add to cart products")
 
         logging.info("Products page has all necessary elements")
         logging.info("Test passed successfully")
@@ -179,7 +182,8 @@ def test_add_to_cart_button_products(driver):
         # Step 2: Find and click on the "add-to-cart" button
         logging.info("Attempting to find and click on 'add-to-cart' button")
         add_to_cart_products = WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.ID, "add-to-cart-sauce-labs-bolt-t-shirt"))
+            EC.element_to_be_clickable((By.ID,
+                                        "add-to-cart-sauce-labs-bolt-t-shirt"))
         )
         add_to_cart_products.click()
         logging.info("Clicked on 'add-to-cart' button successfully")
@@ -187,7 +191,8 @@ def test_add_to_cart_button_products(driver):
         # Step 3: Make sure the "remove" button appears
         logging.info("Waiting for 'remove' button to appear")
         remove_products = WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.ID, "remove-sauce-labs-bolt-t-shirt"))
+            EC.presence_of_element_located((By.ID,
+                                            "remove-sauce-labs-bolt-t-shirt"))
         )
         assert remove_products.is_displayed(), \
             "Expected 'remove' button to be visible after adding item to cart"
@@ -208,7 +213,8 @@ def test_page_elements(product_item_page):
         check_element(product_item_page,
                       product_item_page.burger_menu, "Burger menu")
         check_element(product_item_page,
-                      product_item_page.back_to_products, "Back to Products button")
+                      product_item_page.back_to_products,
+                      "Back to Products button")
         check_element(product_item_page,
                       product_item_page.img, "Product image")
         check_element(product_item_page,
@@ -314,7 +320,8 @@ def test_back_to_products_burger_all_item_button(driver):
         all_item_button.click()
         logging.info("Clicked on 'all_item' button successfully")
 
-        # Step 4: Verify that the browser is redirected to the product catalog page
+        # Step 4: Verify that the browser is redirected
+        # to the product catalog page
         logging.info("Verifying that the browser is "
                      "redirected to the product catalog page")
         WebDriverWait(driver, 20).until(
