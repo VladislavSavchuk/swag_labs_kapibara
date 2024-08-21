@@ -7,7 +7,7 @@ application.
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from pages.base import BasePage
-from test_data.constants import TAX, TAX_TOTAL
+from test_data.ui.constants import TAX, TAX_TOTAL
 
 
 class CheckoutOverviewPage(BasePage):
