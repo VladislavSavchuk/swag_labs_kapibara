@@ -7,3 +7,6 @@ pytest>=7.0
 pytest-html>=4.1
 selenium>=4.23
 webdriver-manager>=4.0
+requests~=2.31.0
+jsonschema~=4.23.0
+python-dotenv~=1.0.1

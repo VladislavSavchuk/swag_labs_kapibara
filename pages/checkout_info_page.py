@@ -7,7 +7,7 @@ application.
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from pages.base import BasePage
-from test_data import checkout_info
+from test_data.ui import checkout_info
 
 
 class CheckoutInfoPage(BasePage):
