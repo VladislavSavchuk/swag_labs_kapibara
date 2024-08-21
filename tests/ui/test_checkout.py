@@ -15,8 +15,8 @@ from pages.checkout_info_page import CheckoutInfoPage
 from pages.checkout_overview_page import CheckoutOverviewPage
 from pages.checkout_complete_page import CheckoutCompletePage
 
-from test_data import (page_titles, checkout_info, other_text_data,
-                       errors_text)
+from test_data.ui import (page_titles)
+from test_data.ui import checkout_info, errors_text, other_text_data
 
 
 @pytest.mark.checkout
