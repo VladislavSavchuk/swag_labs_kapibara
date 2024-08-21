@@ -33,3 +33,11 @@ class UserAPI(BaseAPI):
     def delete_user(self, username):
         """ Deletes a user. """
         return self.delete(f"/user/{username}")
+
+    def user_login(self, payload):
+        """ Login a user. """
+        return self.get("/user/login", payload)
+
+    def user_logout(self):
+        """ Logout a user. """
+        return self.get("/user/logout")

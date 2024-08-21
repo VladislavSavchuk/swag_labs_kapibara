@@ -108,3 +108,65 @@ def test_delete_user(user_api, created_user):
         'Unexpected username'
 
     logging.info("Successfully deleted user")
+
+
+@pytest.mark.api
+@pytest.mark.smoke
+def test_user_login(user_api):
+    """ This test verifies that a user is login """
+    logging.info("Test login user")
+
+    payload = {
+        "username": "test",
+        "password": "abc123"
+    }
+
+    response = user_api.user_login(payload)
+    response_data = response.json()
+    logging.info(f"Response status code: {response.status_code}")
+    logging.info(f"Response data: {response_data}")
+
+    assert response.status_code == 200, \
+        f'Expected 200, got {response.status_code}'
+    assert response_data['code'] == 200, 'Unexpected response code'
+
+    logging.info("Successfully login user")
+
+
+@pytest.mark.api
+@pytest.mark.smoke
+def test_user_logout(user_api):
+    """ This test verifies that a user is logout """
+    response = user_api.user_logout()
+    response_data = response.json()
+    logging.info(f"Response status code: {response.status_code}")
+    logging.info(f"Response data: {response_data}")
+
+    assert response.status_code == 200, \
+        f'Expected 200, got {response.status_code}'
+    assert response_data['code'] == 200, 'Unexpected response code'
+
+    logging.info("Successfully logout user")
+
+
+@pytest.mark.api
+@pytest.mark.smoke
+def test_user_login_negative(user_api):
+    """ This test verifies negative login """
+    logging.info("Test login user")
+
+    payload = {
+        "username": "test_negative",
+        "password": "abc123"
+    }
+
+    response = user_api.user_login(payload)
+    response_data = response.json()
+    logging.info(f"Response status code: {response.status_code}")
+    logging.info(f"Response data: {response_data}")
+
+    assert response.status_code == 400, \
+        f'Expected 400, got {response.status_code}'
+    assert response_data['code'] == 400, 'Unexpected response code'
+
+    logging.info("Successfully login user")
