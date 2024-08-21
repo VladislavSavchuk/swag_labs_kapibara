@@ -54,7 +54,7 @@ def test_get_pet():
 
 
 @pytest.mark.api
-@pytest.mark.pet
+@pytest.mark.pet_api
 @pytest.mark.smoke
 def test_update_pet():
     """Test updating a created pet"""
