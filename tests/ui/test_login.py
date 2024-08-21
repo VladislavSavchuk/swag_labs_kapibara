@@ -10,7 +10,7 @@ empty, and locked-out user cases.
 import logging
 import pytest
 from pages.login_page import LoginPage
-from test_data.login_creds import (
+from test_data.ui.login_creds import (
     STANDARD_USER, LOCKED_OUT_USER, EMPTY_STRING, STANDARD_PASSWORD)
 
 
