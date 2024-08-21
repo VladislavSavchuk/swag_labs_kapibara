@@ -7,7 +7,7 @@ import logging
 from selenium.common import TimeoutException
 from selenium.webdriver.common.by import By
 from pages.base import BasePage
-from test_data import login_creds
+from test_data.ui import login_creds
 
 
 class LoginPage(BasePage):

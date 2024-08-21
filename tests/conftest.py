@@ -2,7 +2,7 @@
 
 import pytest
 from selenium import webdriver
-from test_data.constants import URL
+from test_data.ui.constants import URL
 
 
 @pytest.fixture()
