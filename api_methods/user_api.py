@@ -20,7 +20,7 @@ class UserAPI(BaseAPI):
 
     def create_user(self, user_data):
         """ Creates a new user. """
-        return self.post("/user", json=user_data)
+        return self.post("/user", user_data)
 
     def get_user(self, username):
         """ Gets a user. """
@@ -28,7 +28,7 @@ class UserAPI(BaseAPI):
 
     def update_user(self, username, user_data):
         """ Updates a user. """
-        return self.put(f"/user/{username}", json=user_data)
+        return self.put(f"/user/{username}", user_data)
 
     def delete_user(self, username):
         """ Deletes a user. """

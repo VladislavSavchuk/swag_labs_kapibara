@@ -2,9 +2,11 @@
 
 import logging
 import pytest
-from api_methods.user_api import UserAPI, generate_random_username
+from api_methods.user_api import \
+    UserAPI, generate_random_username
 from jsonschema import validate, ValidationError
-from tests.api.config import user_schema_1, user_schema_2
+from test_data.api.user_schemes import \
+    post_put_delete_user_schema, get_user_schema
 
 
 @pytest.fixture(scope="module")
@@ -33,7 +35,8 @@ def created_user(user_api):
     logging.info(f"Response data: {response_data}")
 
     try:
-        validate(instance=response_data, schema=user_schema_1)
+        validate(instance=response_data,
+                 schema=post_put_delete_user_schema)
     except ValidationError as e:
         pytest.fail(f"Response JSON does not match schema: {e.message}")
 
@@ -45,6 +48,7 @@ def created_user(user_api):
 
 
 @pytest.mark.api
+@pytest.mark.user_api
 @pytest.mark.smoke
 def test_get_user(user_api, created_user):
     """ This test verifies that a user is retrieved by username. """
@@ -59,7 +63,7 @@ def test_get_user(user_api, created_user):
         f'Expected 200, got {response.status_code}'
 
     try:
-        validate(instance=response_data, schema=user_schema_2)
+        validate(instance=response_data, schema=get_user_schema)
     except ValidationError as e:
         pytest.fail(f"Response JSON does not match schema: {e.message}")
 
@@ -69,6 +73,7 @@ def test_get_user(user_api, created_user):
 
 
 @pytest.mark.api
+@pytest.mark.user_api
 @pytest.mark.smoke
 def test_update_user(user_api, created_user):
     """ This test verifies that a user is updated by username. """
@@ -96,7 +101,8 @@ def test_update_user(user_api, created_user):
         f'Expected 200, got {response.status_code}'
 
     try:
-        validate(instance=response_data, schema=user_schema_1)
+        validate(instance=response_data,
+                 schema=post_put_delete_user_schema)
     except ValidationError as e:
         pytest.fail(f"Response JSON does not match schema: {e.message}")
 
@@ -108,6 +114,7 @@ def test_update_user(user_api, created_user):
 
 
 @pytest.mark.api
+@pytest.mark.user_api
 @pytest.mark.smoke
 def test_delete_user(user_api, created_user):
     """ This test verifies that a user is deleted by username. """
@@ -124,7 +131,8 @@ def test_delete_user(user_api, created_user):
         f'Expected 200, got {response.status_code}'
 
     try:
-        validate(instance=response_data, schema=user_schema_1)
+        validate(instance=response_data,
+                 schema=post_put_delete_user_schema)
     except ValidationError as e:
         pytest.fail(f"Response JSON does not match schema: {e.message}")
 
