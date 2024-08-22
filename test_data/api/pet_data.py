@@ -1,4 +1,4 @@
-"""This method contains endpoint for Petstore"""
+"""This method contains data for /pet requests"""
 
 # Pet
 create_pet_valid = {
