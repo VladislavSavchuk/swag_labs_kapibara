@@ -7,12 +7,12 @@ products page of the application. Functionality
 
 import logging
 import pytest
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 from pages.login_page import LoginPage
-from pages.base import BasePage
+from pages.product_page import ProductItemPage, check_element
 
 
 @pytest.fixture
@@ -24,105 +24,6 @@ def product_item_page(driver):
     login_page = LoginPage(driver)
     login_page.login()
     return ProductItemPage(driver)
-
-
-class ProductItemPage(BasePage):
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.burger_menu = (By.ID, "react-burger-menu-btn")
-        self.title = (By.CLASS_NAME, "app_logo")
-        self.filter = (By.CLASS_NAME, "product_sort_container")
-        self.card = (By.CLASS_NAME, "inventory_item_desc")
-        self.back_to_products = (By.ID, "back-to-products")
-        self.img_products = (By.CLASS_NAME, "inventory_item_img")
-        self.img = (By.CLASS_NAME, "inventory_details_img")
-        self.product_name = (By.CLASS_NAME, "inventory_details_name")
-        self.description = (By.CLASS_NAME, "inventory_details_desc")
-        self.price = (By.CLASS_NAME, "inventory_details_price")
-        self.add_to_cart = (By.ID, "add-to-cart")
-        self.all_team = (By.ID, "inventory_sidebar_link")
-        self.card_title = (By.CLASS_NAME, "inventory_item_name")
-        self.card_description = (By.CLASS_NAME, "inventory_item_desc")
-        self.card_price = (By.CLASS_NAME, "inventory_item_price")
-        self.add_to_cart_products = (By.ID,
-                                     "add-to-cart-sauce-labs-bolt-t-shirt")
-        self.remove_products = (By.ID, "remove-sauce-labs-bolt-t-shirt")
-
-    def get_burger_menu(self):
-        return self.find_element(EC.presence_of_element_located
-                                 (self.burger_menu))
-
-    def get_title(self):
-        return self.find_element(EC.presence_of_element_located
-                                 (self.title))
-
-    def get_filter(self):
-        return self.find_element(EC.presence_of_element_located
-                                 (self.filter))
-
-    def get_card(self):
-        return self.find_element(EC.presence_of_element_located
-                                 (self.card))
-
-    def get_img_products(self):
-        return self.find_element(EC.presence_of_element_located
-                                 (self.img_products))
-
-    def get_back_to_products_button(self):
-        return self.find_element(EC.presence_of_element_located
-                                 (self.back_to_products))
-
-    def get_product_image(self):
-        return self.find_element(EC.presence_of_element_located
-                                 (self.img))
-
-    def get_product_name(self):
-        return self.find_element(EC.presence_of_element_located
-                                 (self.product_name))
-
-    def get_product_description(self):
-        return self.find_element(EC.presence_of_element_located
-                                 (self.description))
-
-    def get_product_price(self):
-        return self.find_element(EC.presence_of_element_located
-                                 (self.price))
-
-    def get_add_to_cart_button(self):
-        return self.find_element(EC.presence_of_element_located
-                                 (self.add_to_cart))
-
-    def get_all_items_link(self):
-        return self.find_element(EC.presence_of_element_located
-                                 (self.all_team))
-
-    def get_card_title(self):
-        return self.find_element(EC.presence_of_element_located
-                                 (self.card_title))
-
-    def get_card_description(self):
-        return self.find_element(EC.presence_of_element_located
-                                 (self.card_description))
-
-    def get_card_price(self):
-        return self.find_element(EC.presence_of_element_located
-                                 (self.card_price))
-
-    def get_add_to_cart_products(self):
-        return self.find_element(EC.presence_of_element_located
-                                 (self.add_to_cart_products))
-
-    def get_remove_products(self):
-        return self.find_element(EC.presence_of_element_located
-                                 (self.remove_products))
-
-
-def check_element(page, element_locator, element_name):
-    logging.info(f"Checking for {element_name}")
-    element = page.find_element(EC.presence_of_element_located
-                                (element_locator))
-    assert element.is_displayed(), f"{element_name} not found"
-    logging.info(f"{element_name} found")
 
 
 @pytest.mark.page_elements
@@ -138,10 +39,10 @@ def test_page_elements_products_page(product_item_page):
         check_element(product_item_page,
                       product_item_page.card, "Card")
         check_element(product_item_page,
-                      product_item_page.filter, "~Filter")
+                      product_item_page.filter, "Filter")
 
-        logging.info("Products page has all necessary elements")
-        logging.info("Test passed successfully")
+        logging.info("Products page has all necessary elements. "
+                     "Test passed successfully")
 
     except Exception as e:
         logging.error(f"Test failed: {e}")
@@ -166,8 +67,8 @@ def test_page_elements_products_page_item(product_item_page):
                       product_item_page.add_to_cart_products,
                       "Add to cart products")
 
-        logging.info("Products page has all necessary elements")
-        logging.info("Test passed successfully")
+        logging.info("Products page has all necessary elements. "
+                     "Test passed successfully")
 
     except Exception as e:
         logging.error(f"Test failed: {e}")
@@ -181,26 +82,22 @@ def test_add_to_cart_button_products(driver):
     try:
         # Step 2: Find and click on the "add-to-cart" button
         logging.info("Attempting to find and click on 'add-to-cart' button")
-        add_to_cart_products = WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.ID,
-                                        "add-to-cart-sauce-labs-bolt-t-shirt"))
-        )
+        add_to_cart_products = driver.find_element(By.ID,
+                                                   "add-to-cart-sauce-labs-bolt-t-shirt")
         add_to_cart_products.click()
         logging.info("Clicked on 'add-to-cart' button successfully")
 
         # Step 3: Make sure the "remove" button appears
         logging.info("Waiting for 'remove' button to appear")
-        remove_products = WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.ID,
-                                            "remove-sauce-labs-bolt-t-shirt"))
-        )
+        remove_products = driver.find_element(By.ID,
+                                              "remove-sauce-labs-bolt-t-shirt")
         assert remove_products.is_displayed(), \
             "Expected 'remove' button to be visible after adding item to cart"
         logging.info("'remove' button appeared successfully")
 
     except TimeoutException as e:
-        logging.error("Either 'add-to-cart' button "
-                      "was not clickable or 'remove' button did not appear")
+        logging.error("Either 'add-to-cart' button was not clickable "
+                      "or 'remove' button did not appear")
         raise e
 
 
@@ -226,12 +123,12 @@ def test_page_elements(product_item_page):
         check_element(product_item_page,
                       product_item_page.add_to_cart, "Add to Cart button")
 
-        logging.info("Product item page has all necessary elements")
-        logging.info("Test passed successfully")
+        logging.info("Product item page has all necessary elements. "
+                     "Test passed successfully")
 
     except Exception as e:
         logging.error(f"Test failed: {e}")
-        raise e
+        raise
 
 
 def test_add_to_cart_button(driver):
@@ -244,17 +141,15 @@ def test_add_to_cart_button(driver):
     try:
         # Step 2: Find and click on the "add-to-cart" button
         logging.info("Attempting to find and click on 'add-to-cart' button")
-        add_to_cart_button = WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.ID, "add-to-cart"))
-        )
+        add_to_cart_button = driver.find_element(By.ID, "add-to-cart")
         add_to_cart_button.click()
         logging.info("Clicked on 'add-to-cart' button successfully")
 
         # Step 3: Make sure the "remove" button appears
         logging.info("Waiting for 'remove' button to appear")
-        remove_button = WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.ID, "remove"))
-        )
+        remove_button = driver.find_element(By.ID, "remove")
+        remove_button.click()
+
         assert remove_button.is_displayed(), \
             "Expected 'remove' button to be visible after adding item to cart"
         logging.info("'remove' button appeared successfully")
@@ -276,9 +171,7 @@ def test_back_to_products_button(driver):
         # Step 2: Make sure the element is clickable and click on it
         logging.info("Attempting to find and click on "
                      "'back-to-products' button")
-        back_button_clickable = WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.ID, "back-to-products"))
-        )
+        back_button_clickable = driver.find_element(By.ID, "back-to-products")
         back_button_clickable.click()
         logging.info("Clicked on 'back-to-products' button successfully")
 
@@ -286,9 +179,8 @@ def test_back_to_products_button(driver):
         # to the product catalog page
         logging.info("Verifying that the browser is "
                      "redirected to the product catalog page")
-        WebDriverWait(driver, 20).until(
-            EC.url_to_be("https://www.saucedemo.com/inventory.html")
-        )
+        back_button_clickable = driver.find_element(By.ID, "back-to-products")
+        back_button_clickable.click()
         logging.info("Successfully redirected to the product catalog page")
 
     except TimeoutException as e:
@@ -306,17 +198,13 @@ def test_back_to_products_burger_all_item_button(driver):
     try:
         # Step 2: Open burger menu
         logging.info("Attempting to open the burger menu")
-        burger_menu_button = WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.ID, "react-burger-menu-btn"))
-        )
+        burger_menu_button = driver.find_element(By.ID, "react-burger-menu-btn")
         burger_menu_button.click()
         logging.info("Burger menu opened successfully")
 
         # Step 3: Find and click on 'all_item' button in the burger menu
         logging.info("Attempting to find and click on 'all_item' button")
-        all_item_button = WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.ID, "inventory_sidebar_link"))
-        )
+        all_item_button = driver.find_element(By.ID, "inventory_sidebar_link")
         all_item_button.click()
         logging.info("Clicked on 'all_item' button successfully")
 

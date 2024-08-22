@@ -27,7 +27,7 @@ def test_default_sorting(driver):
         sorting dropdown has all necessary options in it,
         products are sorted according to selected option
     """
-    logging.info("TC12. Verify that products are sorted by alphabet in "
+    logging.info("TC06. Verify that products are sorted by alphabet in "
                  "ascending order by default")
 
     login_page = LoginPage(driver)
