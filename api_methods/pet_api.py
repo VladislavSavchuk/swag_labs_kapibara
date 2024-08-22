@@ -5,7 +5,7 @@ from tests.api.config import BASE_URL
 
 
 class Pet(BaseAPI):
-    """ User API class. """
+    """ Pet API class. """
     def __init__(self):
         """ Initializes the Pet class """
         super().__init__(BASE_URL)

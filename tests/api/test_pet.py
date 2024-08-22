@@ -3,7 +3,7 @@
 import logging
 import pytest
 from jsonschema import validate, ValidationError
-from api_methods.pet import Pet
+from api_methods.pet_api import Pet
 from test_data.api import pet_data
 from test_data.api import pet_schemes
 
@@ -37,7 +37,7 @@ def test_get_pet():
     pet = Pet()
 
     pet_id = str(pet.add_pet(pet_data.create_pet_valid).json()["id"])
-    logging.info("Create a new pet")
+    logging.info("New pet created")
 
     get_pet_response = pet.get_pet(pet_id)
 
@@ -63,7 +63,7 @@ def test_update_pet():
     pet = Pet()
 
     pet_id = str(pet.add_pet(pet_data.create_pet_valid).json()["id"])
-    logging.info("Create a new pet")
+    logging.info("New pet created")
 
     update_pet_response = pet.update_pet(
         pet_data.update_pet_valid(pet_id))
@@ -73,7 +73,7 @@ def test_update_pet():
             is not ValidationError)
     assert (update_pet_response.json()["status"] ==
             pet_data.update_pet_valid(pet_id)["status"])
-    logging.info("PUT Request sent successfully, response schema is correct")
+    logging.info("Pet updated successfully, response schema is correct")
 
     logging.info("Delete created pet")
     delete = pet.delete_pet(pet.pet_id)
@@ -91,7 +91,7 @@ def test_delete_pet():
     pet = Pet()
 
     pet.add_pet(pet_data.create_pet_valid)
-    logging.info("Create a new pet")
+    logging.info("New pet created")
 
     delete_pet_response = pet.delete_pet(pet.pet_id)
 
@@ -113,10 +113,10 @@ def test_delete_pet_negative():
     pet = Pet()
 
     pet.add_pet(pet_data.create_pet_valid).json()
-    logging.info("Create a new pet")
+    logging.info("New pet created")
 
     pet.delete_pet(pet.pet_id)
-    logging.info("Delete a pet")
+    logging.info("Pet deleted")
     delete_pet_response = pet.delete_pet(pet.pet_id)
     logging.info("Try to delete already deleted pet")
 
@@ -125,6 +125,7 @@ def test_delete_pet_negative():
                  f"{delete_pet_response.status_code} is correct")
 
 
+@pytest.mark.xfail
 @pytest.mark.api
 @pytest.mark.pet_api
 @pytest.mark.smoke

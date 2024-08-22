@@ -1,4 +1,4 @@
-"""Module for storing schemes for Petstore testing"""
+"""Module for storing schemes for /pet testing"""
 
 get_put_pet = {
     "type": "object",
