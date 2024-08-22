@@ -144,6 +144,7 @@ def test_delete_user(user_api, created_user):
 
 
 @pytest.mark.api
+@pytest.mark.user_api
 @pytest.mark.smoke
 def test_user_login(user_api):
     """ This test verifies that a user is login """
@@ -167,6 +168,7 @@ def test_user_login(user_api):
 
 
 @pytest.mark.api
+@pytest.mark.user_api
 @pytest.mark.smoke
 def test_user_logout(user_api):
     """ This test verifies that a user is logout """
@@ -183,6 +185,7 @@ def test_user_logout(user_api):
 
 
 @pytest.mark.api
+@pytest.mark.user_api
 @pytest.mark.smoke
 def test_user_login_negative(user_api):
     """ This test verifies negative login """
