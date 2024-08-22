@@ -11,7 +11,7 @@ import logging
 import pytest
 from pages.login_page import LoginPage
 from pages.all_products_page import AllProductsPage
-from test_data import sorting_options_data
+from test_data.ui import sorting_options_data
 
 
 @pytest.mark.product_sort
