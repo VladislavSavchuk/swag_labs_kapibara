@@ -59,7 +59,7 @@ def test_get_order():
 @pytest.mark.order_api
 @pytest.mark.smoke
 def test_delete_order():
-    """Test deleting a order"""
+    """Test deleting an order"""
     logging.info("Test DELETE request to store/order/{order_id} endpoint and "
                  "verify that order deleted")
     order = Order()
@@ -81,7 +81,7 @@ def test_delete_order():
 @pytest.mark.order_api
 @pytest.mark.smoke
 def test_delete_order_negative():
-    """Test deleting a deleted order"""
+    """Test deleting an already deleted order"""
     logging.info("Test DELETE request to store/order/{order_id} endpoint twice"
                  " and verify error code")
     order = Order()
