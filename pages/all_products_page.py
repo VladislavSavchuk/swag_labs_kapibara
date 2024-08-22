@@ -3,8 +3,8 @@ This module contains the AllProductsPage class, which provides functionalities
 specific to the products page of the application.
 """
 
-import logging
 from random import randrange
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from pages.base import BasePage
 
@@ -20,7 +20,10 @@ class AllProductsPage(BasePage):
         products page.
         """
         super().__init__(driver)
+        self.app_logo = (By.CLASS_NAME, "app_logo")
         self.page_title = (By.CLASS_NAME, "title")
+        self.burger_menu = (By.ID, "react-burger-menu-btn")
+        self.all_items = (By.ID, "inventory_sidebar_link")
 
         self.inventory_list = (By.CLASS_NAME, "inventory_list")
         self.cart_button = (By.CLASS_NAME, "shopping_cart_link")
@@ -35,9 +38,14 @@ class AllProductsPage(BasePage):
         self.sorting_price_asc = (By.XPATH, "//option[@value='lohi']")
         self.sorting_price_desc = (By.XPATH, "//option[@value='hilo']")
 
+        self.product_card = (By.CLASS_NAME, "inventory_item_desc")
+        self.product_image = (By.CLASS_NAME, "inventory_item_img")
         self.product_title = (By.CLASS_NAME, "inventory_item_name ")
         self.product_price = (By.CLASS_NAME, "inventory_item_price")
-        self.add_to_cart_button = (By.ID, "add-to-cart-sauce-labs-onesie")
+        self.add_to_cart_button = (
+            By.XPATH, "//div[@class='pricebar']/button")
+        self.remove_item_button = (
+            By.XPATH, "//button[contains(@id, 'remove')]")
 
     def get_page_title(self):
         """ Returns page title text """
@@ -81,14 +89,51 @@ class AllProductsPage(BasePage):
         add_buttons_list = self.find_elements(self.add_to_cart_button)
         self.click_element(add_buttons_list[randrange(len(add_buttons_list))])
 
-        assert self.cart_badge_number() == '1'
-        logging.info("1 product added to cart")
-
     def cart_badge_number(self):
         """ Returns the number at cart badge representing amount of products
             added to cart """
         return self.get_text(self.cart_badge)
 
+    def get_remove_button(self):
+        """ Returns remove button if its found """
+        return self.find_element(self.remove_item_button)
+
     def go_to_cart(self):
         """ Clicks at cart button """
         self.click_element(self.cart_button)
+
+    def open_random_product_item(self):
+        """ Opens random product """
+        products_list = self.find_elements(self.product_title)
+        self.click_element(products_list[
+            randrange(len(products_list))])
+
+    def check_page_elements(self):
+        """ Finds elements on the page, returns False otherwise """
+        elements = [self.app_logo,
+                    self.page_title,
+                    self.burger_menu,
+                    self.inventory_list,
+                    self.cart_button]
+        try:
+            for element in elements:
+                self.find_element(element)
+
+        except TimeoutException:
+            return False
+        return True
+
+    def check_inventory_list_elements(self):
+        """ Finds elements on the page, returns False otherwise """
+        elements = [self.product_card,
+                    self.product_image,
+                    self.product_title,
+                    self.product_price,
+                    self.add_to_cart_button]
+        try:
+            for element in elements:
+                self.find_elements(element)
+
+        except TimeoutException:
+            return False
+        return True

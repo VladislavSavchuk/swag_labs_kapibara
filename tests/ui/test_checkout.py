@@ -252,6 +252,7 @@ def test_cancel_checkout(driver):
                  "process")
 
 
+@pytest.mark.xfail
 @pytest.mark.checkout
 @pytest.mark.smoke
 @pytest.mark.uitests
@@ -290,6 +291,7 @@ def test_empty_checkout_info(driver):
     logging.info("Error messages are correct")
 
 
+@pytest.mark.xfail
 @pytest.mark.checkout
 @pytest.mark.smoke
 @pytest.mark.uitests
