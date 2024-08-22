@@ -18,7 +18,8 @@ def test_product_page(driver, product_id, expected_name):
     try:
         # Ожидание элемента с классом
         product_name_element = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.CLASS_NAME, "inventory_details_name"))
+            EC.presence_of_element_located((By.CLASS_NAME,
+                                            "inventory_details_name"))
         )
         product_name = product_name_element.text
     except Exception as e:

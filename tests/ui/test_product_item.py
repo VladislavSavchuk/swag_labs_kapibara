@@ -82,8 +82,8 @@ def test_add_to_cart_button_products(driver):
     try:
         # Step 2: Find and click on the "add-to-cart" button
         logging.info("Attempting to find and click on 'add-to-cart' button")
-        add_to_cart_products = driver.find_element(By.ID,
-                                                   "add-to-cart-sauce-labs-bolt-t-shirt")
+        add_to_cart_products = (driver.find_element
+                                (By.ID, "add-to-cart-sauce-labs-bolt-t-shirt"))
         add_to_cart_products.click()
         logging.info("Clicked on 'add-to-cart' button successfully")
 
@@ -198,7 +198,8 @@ def test_back_to_products_burger_all_item_button(driver):
     try:
         # Step 2: Open burger menu
         logging.info("Attempting to open the burger menu")
-        burger_menu_button = driver.find_element(By.ID, "react-burger-menu-btn")
+        burger_menu_button = driver.find_element(By.ID,
+                                                 "react-burger-menu-btn")
         burger_menu_button.click()
         logging.info("Burger menu opened successfully")
 
