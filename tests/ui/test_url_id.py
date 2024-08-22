@@ -3,6 +3,7 @@ Testing the products page of saucedemo.com.
 This module contains a set of test to check url ID
 """
 
+import logging
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -16,19 +17,20 @@ def test_product_page(driver, product_id, expected_name):
     driver.get(url)
 
     try:
-        # Ожидание элемента с классом
+        # Waiting for an element with a class
         product_name_element = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CLASS_NAME,
                                             "inventory_details_name"))
         )
         product_name = product_name_element.text
     except Exception as e:
-        # Обработка исключений, если элемент не найден
+        # Handling exceptions if element not found
         product_name = str(e)
+        logging.error(f"Error finding element: {product_name}")
 
-    # Проверка названия продукта или сообщения об ошибке на странице
-    print(product_name)  # или logging.info(product_name)
+    # Checking the product name or error message on the page
+    logging.info(f"Product name on page: {product_name}")
 
-    # Проверка названия продукта или сообщения об ошибке на странице
+    # Checking the product name or error message on the page
     assert expected_name in product_name, \
         f"Expected '{expected_name}', but got '{product_name}'"
