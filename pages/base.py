@@ -26,6 +26,12 @@ class BasePage:
         """
         return self.wait.until(EC.presence_of_element_located(locator))
 
+    def find_elements(self, locator):
+        """
+        Finds all elements on the page using the provided locator.
+        """
+        return self.wait.until(EC.presence_of_all_elements_located(locator))
+
     def click_element(self, locator):
         """
         Clicks on an element located by the provided locator.
@@ -85,3 +91,9 @@ class BasePage:
             text = elem.text
             texts.append(text)
         return texts
+
+    def element_is_invisible(self, locator):
+        """
+        Checks if an element is invisible.
+        """
+        return self.wait.until(EC.invisibility_of_element_located(locator))

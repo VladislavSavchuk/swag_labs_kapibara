@@ -16,9 +16,8 @@ htmlcov/
 
 # Environments
 venv*/
-
-# Virtual environment
-swaglabs*/
+.env
+*swaglabs
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
