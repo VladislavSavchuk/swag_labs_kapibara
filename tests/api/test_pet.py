@@ -3,7 +3,7 @@
 import logging
 import pytest
 from jsonschema import validate, ValidationError
-from api_methods.pet import Pet
+from api_methods.pet_api import Pet
 from test_data.api import pet_data
 from test_data.api import pet_schemes
 
