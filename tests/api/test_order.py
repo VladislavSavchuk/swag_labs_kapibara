@@ -13,8 +13,7 @@ from test_data.api import order_schemes
 @pytest.mark.smoke
 def test_place_order():
     """Test creating a new order"""
-    logging.info("Test POST request to /store/order endpoint and verify that "
-                 "new order places to the store")
+    logging.info("API-TC14. Verify ability to place a new order")
     order = Order()
 
     response = order.create_order(order_data.create_order)
@@ -33,8 +32,7 @@ def test_place_order():
 @pytest.mark.smoke
 def test_get_order():
     """Test getting a created order"""
-    logging.info("Test GET request to store/order/{order_id} endpoint and "
-                 "verify that new order added to the store")
+    logging.info("API-TC15. Verify ability to get order info by its ID")
     order = Order()
 
     order_id = str(order.create_order(order_data.create_order).json()["id"])
@@ -60,8 +58,7 @@ def test_get_order():
 @pytest.mark.smoke
 def test_delete_order():
     """Test deleting an order"""
-    logging.info("Test DELETE request to store/order/{order_id} endpoint and "
-                 "verify that order deleted")
+    logging.info("API-TC16. Verify ability to delete order by its ID")
     order = Order()
 
     order.create_order(order_data.create_order)
@@ -82,8 +79,8 @@ def test_delete_order():
 @pytest.mark.smoke
 def test_delete_order_negative():
     """Test deleting an already deleted order"""
-    logging.info("Test DELETE request to store/order/{order_id} endpoint twice"
-                 " and verify error code")
+    logging.info("API-TC17. Verify inability to delete order with "
+                 "non-existing ID")
     order = Order()
 
     order.create_order(order_data.create_order).json()
@@ -103,10 +100,8 @@ def test_delete_order_negative():
 @pytest.mark.order_api
 @pytest.mark.smoke
 def test_get_order_negative():
-    """Test updating a created order using id of non existing order in request
-        body"""
-    logging.info("Test GET request to store/order endpoint with non existing "
-                 "order_id in request body and verify response code")
+    """Test getting an order using non-existing id in request body"""
+    logging.info("API-TC18. Verify inability to get order by non-existing ID")
     order = Order()
 
     get_order_neg_response = order.get_order(order_data.invalid_order_id)

@@ -13,8 +13,7 @@ from test_data.api import pet_schemes
 @pytest.mark.smoke
 def test_add_pet():
     """Test creating a new pet"""
-    logging.info("Test POST request to /pet endpoint and verify that new "
-                 "pet added to the store")
+    logging.info("API-TC08. Verify ability to add a new pet to the store")
     pet = Pet()
 
     response = pet.add_pet(pet_data.create_pet_valid)
@@ -32,8 +31,7 @@ def test_add_pet():
 @pytest.mark.smoke
 def test_get_pet():
     """Test getting a created pet"""
-    logging.info("Test GET request to /pet/{pet_id} endpoint and verify that "
-                 "new pet added to the store")
+    logging.info("API-TC09. Verify ability to get pet info by its ID")
     pet = Pet()
 
     pet_id = str(pet.add_pet(pet_data.create_pet_valid).json()["id"])
@@ -58,8 +56,7 @@ def test_get_pet():
 @pytest.mark.smoke
 def test_update_pet():
     """Test updating a created pet"""
-    logging.info("Test PUT request to /pet endpoint and verify that "
-                 "pet updated")
+    logging.info("API-TC10. Verify ability to update pet")
     pet = Pet()
 
     pet_id = str(pet.add_pet(pet_data.create_pet_valid).json()["id"])
@@ -86,8 +83,7 @@ def test_update_pet():
 @pytest.mark.smoke
 def test_delete_pet():
     """Test deleting a pet"""
-    logging.info("Test DELETE request to /pet/{pet_id} endpoint and verify "
-                 "that pet deleted")
+    logging.info("API-TC11. Verify ability to delete pet")
     pet = Pet()
 
     pet.add_pet(pet_data.create_pet_valid)
@@ -108,8 +104,7 @@ def test_delete_pet():
 @pytest.mark.smoke
 def test_delete_pet_negative():
     """Test deleting a deleted pet"""
-    logging.info("Test DELETE request to /pet/{pet_id} endpoint twice and "
-                 "verify error code")
+    logging.info("API-TC12. Verify inability to delete an already deleted pet")
     pet = Pet()
 
     pet.add_pet(pet_data.create_pet_valid).json()
@@ -125,14 +120,12 @@ def test_delete_pet_negative():
                  f"{delete_pet_response.status_code} is correct")
 
 
-@pytest.mark.xfail
 @pytest.mark.api
 @pytest.mark.pet_api
 @pytest.mark.smoke
 def test_update_pet_negative():
     """Test updating a created pet using empty id in request body"""
-    logging.info("Test PUT request to /pet endpoint with empty id in request "
-                 "body and verify response code")
+    logging.info("API-TC13. Verify inability to update pet with empty ID")
     pet = Pet()
 
     update_pet_neg_response = pet.update_pet(pet_data.update_pet_invalid)

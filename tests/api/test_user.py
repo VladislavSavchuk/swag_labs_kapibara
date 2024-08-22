@@ -2,9 +2,9 @@
 
 import logging
 import pytest
+from jsonschema import validate, ValidationError
 from api_methods.user_api import \
     UserAPI, generate_random_username
-from jsonschema import validate, ValidationError
 from test_data.api.user_schemes import \
     post_put_delete_user_schema, get_user_schema
 
@@ -18,6 +18,7 @@ def user_api():
 @pytest.fixture(scope="module")
 def created_user(user_api):
     """Creates a new user and returns its username."""
+    logging.info("API-TC01. Verify ability to create a new user")
     random_username = generate_random_username()
     user_data = {
         "id": 0,
@@ -52,7 +53,7 @@ def created_user(user_api):
 @pytest.mark.smoke
 def test_get_user(user_api, created_user):
     """ This test verifies that a user is retrieved by username. """
-    logging.info("Test Get user by username")
+    logging.info("API-TC02. Verify ability to get user info by username")
 
     response = user_api.get_user(created_user)
     response_data = response.json()
@@ -77,7 +78,7 @@ def test_get_user(user_api, created_user):
 @pytest.mark.smoke
 def test_update_user(user_api, created_user):
     """ This test verifies that a user is updated by username. """
-    logging.info("Test Update user by username")
+    logging.info("API-TC02. Verify ability to update user by username")
 
     random_username = generate_random_username()
 
@@ -118,7 +119,7 @@ def test_update_user(user_api, created_user):
 @pytest.mark.smoke
 def test_delete_user(user_api, created_user):
     """ This test verifies that a user is deleted by username. """
-    logging.info("Test Delete user by username")
+    logging.info("API-TC04. Verify ability to delete user by username")
 
     updated_user_data = test_update_user(user_api, created_user)
 
@@ -148,7 +149,7 @@ def test_delete_user(user_api, created_user):
 @pytest.mark.smoke
 def test_user_login(user_api):
     """ This test verifies that a user is login """
-    logging.info("Test login user")
+    logging.info("API-TC05. Verify ability to login")
 
     payload = {
         "username": "test",
@@ -172,6 +173,7 @@ def test_user_login(user_api):
 @pytest.mark.smoke
 def test_user_logout(user_api):
     """ This test verifies that a user is logout """
+    logging.info("API-TC06. Verify ability to logout")
     response = user_api.user_logout()
     response_data = response.json()
     logging.info(f"Response status code: {response.status_code}")
@@ -189,7 +191,7 @@ def test_user_logout(user_api):
 @pytest.mark.smoke
 def test_user_login_negative(user_api):
     """ This test verifies negative login """
-    logging.info("Test login user")
+    logging.info("API-TC07. Verify inability to login with non-existing user")
 
     payload = {
         "username": "test_negative",
@@ -205,4 +207,4 @@ def test_user_login_negative(user_api):
         f'Expected 400, got {response.status_code}'
     assert response_data['code'] == 400, 'Unexpected response code'
 
-    logging.info("Successfully login user")
+    logging.info("Error code is correct")
