@@ -10,3 +10,4 @@ webdriver-manager>=4.0
 requests~=2.31.0
 jsonschema~=4.23.0
 python-dotenv~=1.0.1
+allure-pytest==2.13.5
