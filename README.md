@@ -1,1 +1,0 @@
-# swag_labs_kapibara
