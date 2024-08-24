@@ -17,27 +17,29 @@ class UserAPI(BaseAPI):
     def __init__(self):
         """ Initializes the UserAPI. """
         super().__init__(BASE_URL)
+        self.endpoint = "/user/"
+        self.username = ""
 
     def create_user(self, user_data):
         """ Creates a new user. """
-        return self.post("/user", user_data)
+        return self.post(self.endpoint, user_data)
 
     def get_user(self, username):
         """ Gets a user. """
-        return self.get(f"/user/{username}")
+        return self.get(self.endpoint + username)
 
     def update_user(self, username, user_data):
         """ Updates a user. """
-        return self.put(f"/user/{username}", user_data)
+        return self.put(self.endpoint + username, user_data)
 
     def delete_user(self, username):
         """ Deletes a user. """
-        return self.delete(f"/user/{username}")
+        return self.delete(self.endpoint + username)
 
     def user_login(self, payload):
         """ Login a user. """
-        return self.get("/user/login", payload)
+        return self.get(self.endpoint + "login", payload)
 
     def user_logout(self):
         """ Logout a user. """
-        return self.get("/user/logout")
+        return self.get(self.endpoint + "logout")
