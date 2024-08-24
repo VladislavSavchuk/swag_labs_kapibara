@@ -33,4 +33,3 @@ login_user_negative_payload = {
         "username": "test_negative",
         "password": "abc1234"
     }
-
