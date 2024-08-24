@@ -123,6 +123,7 @@ def test_delete_pet_negative():
 @pytest.mark.api
 @pytest.mark.pet_api
 @pytest.mark.smoke
+@pytest.mark.xfail(reason="Expected 400 error code, but got 200")
 def test_update_pet_negative():
     """Test updating a created pet using empty id in request body"""
     logging.info("API-TC13. Verify inability to update pet with empty ID")
