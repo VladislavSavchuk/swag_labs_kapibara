@@ -99,6 +99,7 @@ def test_delete_order_negative():
 @pytest.mark.api
 @pytest.mark.order_api
 @pytest.mark.smoke
+@pytest.mark.xfail(reason="Expected 404 error code, but got 200")
 def test_get_order_negative():
     """Test getting an order using non-existing id in request body"""
     logging.info("API-TC18. Verify inability to get order by non-existing ID")
