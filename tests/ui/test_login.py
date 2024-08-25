@@ -26,7 +26,7 @@ def test_login_valid_user(driver):
     correct credentials. The test asserts that no error message
     appears on the page after the login attempt.
     """
-    logging.info("Verifying that user can login with correct creds")
+    logging.info("TC01. Verifying that user can login with correct creds")
 
     login_page = LoginPage(driver)
     login_page.login(username=STANDARD_USER, password=STANDARD_PASSWORD)
@@ -45,7 +45,7 @@ def test_login_invalid_user(driver):
     This test verifies that logging in with incorrect credentials
     results in an error message being displayed on the page.
     """
-    logging.info("Verifying that user cannot login with incorrect creds")
+    logging.info("TC02. Verifying that user cannot login with incorrect creds")
 
     login_page = LoginPage(driver)
     login_page.login(
@@ -65,8 +65,8 @@ def test_login_empty_blank(driver):
     This test verifies that an error message is displayed when the user
     attempts to log in without entering a username or password.
     """
-    logging.info(
-        "Verifying that user cannot login with empty username and password")
+    logging.info("TC03. Verifying that user cannot login with empty username "
+                 "and password")
 
     login_page = LoginPage(driver)
     login_page.login(username=EMPTY_STRING, password=EMPTY_STRING)
@@ -86,7 +86,7 @@ def test_login_locked_out_user(driver):
     This test verifies that attempting to log in with a locked-out user's
     credentials results in an error message being displayed on the page.
     """
-    logging.info("Verifying that user cannot login with locked out user")
+    logging.info("TC04. Verifying that user cannot login with locked out user")
 
     login_page = LoginPage(driver)
     login_page.login(username=LOCKED_OUT_USER, password=STANDARD_PASSWORD)
