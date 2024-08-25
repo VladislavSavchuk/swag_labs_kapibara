@@ -1,12 +1,18 @@
 pipeline {
     agent any
     triggers {
-        cron('H H * * 1')
+        cron('H/5 * * * *')
     }
     stages {
+        stage('Clean Workspace') {
+            steps {
+                deleteDir() // remove all files from workspace
+            }
+        }
         stage('Setup Environment') {
             steps {
                 script {
+                    echo 'Setting up environment...'
                     sh '''
                         python3 -m venv venv
                         . venv/bin/activate
@@ -17,10 +23,13 @@ pipeline {
         }
         stage('Run API Tests') {
             steps {
-                sh '''
-                    . venv/bin/activate
-                    pytest --alluredir=allure-results -m api
-                '''
+                script {
+                    echo 'Running API tests...'
+                    sh '''
+                        . venv/bin/activate
+                        pytest --alluredir=allure-results -m api
+                    '''
+                }
             }
         }
     }
