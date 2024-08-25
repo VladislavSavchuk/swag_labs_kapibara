@@ -5,6 +5,7 @@ products page of the application. Functionality
 "Add to card" and "Back to products"
 """
 
+
 import logging
 import pytest
 from pages.login_page import LoginPage
@@ -15,6 +16,7 @@ from test_data.ui import page_titles, constants, other_text_data
 
 @pytest.mark.product_page
 @pytest.mark.smoke
+@pytest.mark.uitests
 def test_product_item_page_elements(driver):
     logging.info("TC08. Basic elements existence on Product item page")
     login_page = LoginPage(driver)
@@ -31,6 +33,7 @@ def test_product_item_page_elements(driver):
 
 @pytest.mark.product_page
 @pytest.mark.smoke
+@pytest.mark.uitests
 def test_add_to_cart_button(driver):
     logging.info("TC09. 'Add to card' functionality via 'Product item' page")
     login_page = LoginPage(driver)
@@ -47,6 +50,7 @@ def test_add_to_cart_button(driver):
 
 @pytest.mark.product_page
 @pytest.mark.smoke
+@pytest.mark.uitests
 def test_back_to_products_button(driver):
     logging.info("TC10. 'Back to products' functionality.")
     login_page = LoginPage(driver)
@@ -65,6 +69,7 @@ def test_back_to_products_button(driver):
 
 @pytest.mark.product_page
 @pytest.mark.smoke
+@pytest.mark.uitests
 def test_burger_all_item_button(driver):
     logging.info("TC11. 'Back to products via Burger' functionality")
     login_page = LoginPage(driver)
@@ -84,6 +89,7 @@ def test_burger_all_item_button(driver):
 @pytest.mark.xfail
 @pytest.mark.product_page
 @pytest.mark.smoke
+@pytest.mark.uitests
 def test_invalid_url_product(driver):
     logging.info("TC08(neg). Changing product id to invalid value via URL")
     login_page = LoginPage(driver)

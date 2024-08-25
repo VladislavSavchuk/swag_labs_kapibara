@@ -13,6 +13,7 @@ from pages.all_products_page import AllProductsPage
 
 @pytest.mark.all_products_page
 @pytest.mark.smoke
+@pytest.mark.uitests
 def test_page_elements_all_products_page(driver):
     logging.info("TC05. Basic elements existence on All Products page")
     login_page = LoginPage(driver)
@@ -26,6 +27,7 @@ def test_page_elements_all_products_page(driver):
 
 @pytest.mark.all_products_page
 @pytest.mark.smoke
+@pytest.mark.uitests
 def test_page_elements_products_page_item(driver):
     logging.info("TC06. Basic elements existence on Products card")
     login_page = LoginPage(driver)
@@ -38,6 +40,7 @@ def test_page_elements_products_page_item(driver):
 
 @pytest.mark.all_products_page
 @pytest.mark.smoke
+@pytest.mark.uitests
 def test_add_to_cart_button_products(driver):
     logging.info("TC07. 'Add to card' functionality via 'Products' page")
     login_page = LoginPage(driver)
