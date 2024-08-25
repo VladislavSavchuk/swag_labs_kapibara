@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+    triggers {
+        cron('0 8,20 * * *')
+    }
+    stages {
+        stage('Setup Environment') {
+            steps {
+                script {
+                    sh '''
+                        python3 -m venv venv
+                        . venv/bin/activate
+                        pip install -r requirements.txt
+                    '''
+                }
+            }
+        }
+        stage('Run API Tests') {
+            steps {
+                sh '''
+                    . venv/bin/activate
+                    pytest --alluredir=allure-results -m api
+                '''
+            }
+        }
+    }
+    post {
+        always {
+            allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
+        }
+    }
+}
